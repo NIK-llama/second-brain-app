@@ -31,7 +31,7 @@ export const Card = (props: CardProps) => {
       <div className="pt-4">
         {props.type === "youtube" && (
           <iframe
-            className="aspect-video rounded-lg"
+            className="relative w-full overflow-hidden rounded-lg aspect-video"
             src={props.link.replace("watch", "embed").replace("?v=", "/")}
             title="YouTube video player"
             frameBorder="0"
