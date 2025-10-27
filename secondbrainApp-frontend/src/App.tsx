@@ -12,7 +12,8 @@ function App() {
       <Button variant="secondary" text="Share Brain" startIcon={<ShareIcon />}/>
       <br />
       <Button variant="primary" text="Add Content" startIcon={<PlusIcon />}/>
-      <Card />
+      <Card title="Python Project" link="https://www.youtube.com/watch?v=Wif4zLlruqo" type="youtube" />
+      <Card title="Tweet" link="https://x.com/_JohnHammond/status/1964365840997843289" type="twitter" />
     </>
   )
 }
