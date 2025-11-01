@@ -6,6 +6,7 @@ import { CreateContentModal } from "../components/CreateContentModal";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { Sidebar } from "../components/Sidebar";
+import { Signup } from "./Signup";
 
 export const DashBoard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +16,7 @@ export const DashBoard = () => {
 
   return (
     <div>
+      <Signup />
       <Sidebar />
       <div className="p-4 font-sans ml-64 min-h-screen bg-gray-100">
         <CreateContentModal open={isModalOpen} onClose={closeModal} />
