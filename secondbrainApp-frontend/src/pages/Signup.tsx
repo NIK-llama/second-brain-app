@@ -1,13 +1,22 @@
+import axios from "axios";
 import { useRef } from "react";
+import { BACKEND_URL } from "../config";
 
 export const Signup = () => {
   const usernameRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
 
-  function signup(e: React.FormEvent) {
+  async function signup(e: React.FormEvent) {
     e.preventDefault();
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
+    await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+      username,
+      password,
+    });
+    navigate("/signin");
+    alert("You have Signed up!");
   }
 
   return (
@@ -22,13 +31,13 @@ export const Signup = () => {
           </p>
         </div>
 
-        <form className="space-y-6">
+        <form onSubmit={signup} className="space-y-6">
           <div>
             <input
               ref={usernameRef}
-              id="email"
-              name="email"
-              type="email"
+              id="username"
+              name="username"
+              type="text"
               required
               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150"
               placeholder="Username"
@@ -46,8 +55,7 @@ export const Signup = () => {
             />
           </div>
           <button
-            onSubmit={signup}
-            onClick={signup}
+            type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150"
           >
             Submit

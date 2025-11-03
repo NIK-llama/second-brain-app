@@ -6,11 +6,13 @@ import { UserModel, ContentModel, LinkModel } from "./db.js";
 import { userMiddleware } from "./middleware.js";
 import dotenv from "dotenv";
 import { random } from "./utils.js";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.post("/api/v1/signup", async (req, res) => {
   const requiredBody = z.object({
     username: z.string().min(5).max(30),

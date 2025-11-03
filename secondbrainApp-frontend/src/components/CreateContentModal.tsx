@@ -1,4 +1,12 @@
+import { useRef, useState } from "react";
 import { CrossIcon } from "../icons/CrossIcon";
+import { Button } from "./Button";
+
+//@ts-ignore
+enum ContentType {
+  Youtube = "youtube",
+  Twitter = "twitter",
+}
 
 interface ModalProps {
   open: boolean;
@@ -6,6 +14,15 @@ interface ModalProps {
 }
 
 export const CreateContentModal = ({ open, onClose }: ModalProps) => {
+  const titleRef = useRef<HTMLInputElement>();
+  const linkRef = useRef<HTMLInputElement>();
+  const [type, setType] = useState(ContentType.Youtube);
+
+  function addContent() {
+    const title = titleRef.current?.value;
+    const link = linkRef.current?.value;
+  }
+
   return (
     <div>
       {open && (
@@ -22,8 +39,33 @@ export const CreateContentModal = ({ open, onClose }: ModalProps) => {
               save.
             </p>
 
-            <Input placeholder={"Give a Title"} />
-            <Input placeholder={"Paste URL here..."} />
+            <Input reference={titleRef} placeholder={"Give a Title"} />
+            <Input reference={linkRef} placeholder={"Paste URL here..."} />
+
+            <div>
+              <h1>Type</h1>
+              <div className="flex gap-1 p-4">
+                <Button
+                  text="Youtube"
+                  variant={
+                    type === ContentType.Youtube ? "primary" : "secondary"
+                  }
+                  onClick={() => {
+                    setType(ContentType.Youtube);
+                  }}
+                />
+
+                <Button
+                  text="Twitter"
+                  variant={
+                    type === ContentType.Twitter ? "primary" : "secondary"
+                  }
+                  onClick={() => {
+                    setType(ContentType.Twitter);
+                  }}
+                />
+              </div>
+            </div>
 
             <div className="flex justify-end space-x-3">
               <button
@@ -33,7 +75,7 @@ export const CreateContentModal = ({ open, onClose }: ModalProps) => {
                 Cancel
               </button>
               <button
-                // Replace with your actual submission handler
+                onClick={addContent}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
               >
                 Add Content
@@ -48,15 +90,15 @@ export const CreateContentModal = ({ open, onClose }: ModalProps) => {
 
 interface InputProps {
   placeholder: string;
-  // onChange: void;
+  reference?: any;
 }
 
 const Input = (props: InputProps) => {
   return (
     <input
+      ref={props.reference}
       type="text"
       placeholder={props.placeholder}
-      // onChange={props.onChange}
       className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   );
