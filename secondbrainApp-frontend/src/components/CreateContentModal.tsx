@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { CrossIcon } from "../icons/CrossIcon";
 import { Button } from "./Button";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 //@ts-ignore
 enum ContentType {
@@ -14,14 +16,41 @@ interface ModalProps {
 }
 
 export const CreateContentModal = ({ open, onClose }: ModalProps) => {
-  const titleRef = useRef<HTMLInputElement>();
-  const linkRef = useRef<HTMLInputElement>();
+  const titleRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
   const [type, setType] = useState(ContentType.Youtube);
 
-  function addContent() {
-    const title = titleRef.current?.value;
-    const link = linkRef.current?.value;
-  }
+  const addContent = async () => {
+    const title = titleRef.current?.value.trim();
+    const link = linkRef.current?.value.trim();
+
+    if (!title || !link) {
+      alert("Please fill in both title and link.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${BACKEND_URL}/api/v1/content`,
+        {
+          title,
+          link,
+          type,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      alert("Content added successfully!");
+      onClose();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add content. Please try again.");
+    }
+  };
 
   return (
     <div>

@@ -14,7 +14,7 @@ const contentSchema = new Schema({
     link: String,
     type: {
     type: String,
-    enum: ["video", "article", "podcast", "other"], 
+    enum: ["youtube", "twitter"], 
     required: true,
   },
     tags: [{type: mongoose.Types.ObjectId, ref: 'tag'}],

@@ -6,9 +6,12 @@ import { CreateContentModal } from "../components/CreateContentModal";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { Sidebar } from "../components/Sidebar";
+import { useContent } from "../hooks/useContent";
+
 
 export const DashBoard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const contents = useContent();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -33,16 +36,14 @@ export const DashBoard = () => {
           />
         </div>
         <div className="flex gap-4 items-start">
-          <Card
-            title="Tweet"
-            link="https://x.com/_JohnHammond/status/1964365840997843289"
-            type="twitter"
-          />
-          <Card
-            title="Python Project"
-            link="https://www.youtube.com/watch?v=Wif4zLlruqo"
-            type="youtube"
-          />
+          {contents.map(({ _id,type, link, title }) => (
+            <Card
+              key={_id}
+              title={title}
+              link={link}
+              type={type}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -4,15 +4,15 @@ import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 
 export const Signin = () => {
-  const usernameRef = useRef<HTMLInputElement>();
-  const passwordRef = useRef<HTMLInputElement>();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   async function signin(e: React.FormEvent) {
     e.preventDefault();
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
-    const response = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+    const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
       username,
       password,
     });

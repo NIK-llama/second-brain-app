@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 
 export const Signup = () => {
-  const usernameRef = useRef<HTMLInputElement>();
-  const passwordRef = useRef<HTMLInputElement>();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   async function signup(e: React.FormEvent) {
